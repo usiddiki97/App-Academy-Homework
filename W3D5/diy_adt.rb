@@ -71,3 +71,28 @@ end
 
 # As always, test your code thoroughly to make sure all properties of maps ar
 #e enforced.
+class Map
+    def initialize
+        @arr_map = []
+    end
+
+    def set(key, value)
+       @arr_map.each do |pair|
+            unless pair[0] == key
+                @arr_map << [key, value]
+            else
+                pair[1] = value
+            end
+        end
+    end
+
+    def get(key)
+        @arr_map.each { |pair| return pair[1] if pair[0] == key }
+        return "The key for which you are searching for does not exist :O"
+    end
+
+    def delete(key)
+        @arr_map.each { |pair| @arr_map.delete(pair) if pair [0] == key } 
+    end
+
+end
