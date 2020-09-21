@@ -6,7 +6,7 @@
 # we should be able to add a neighboring node.
 
 class GraphNode
-    attr_reader :val, :neighbors
+    attr_accessor :val, :neighbors
     def initialize(val)
         @val = val
         @neighbors = []
@@ -28,13 +28,22 @@ a.neighbors = [b, c, e]
 c.neighbors = [b, d]
 e.neighbors = [a]
 f.neighbors = [e]
+
 # Let's write a breadth-first search, making sure to keep track not just of
 # the queue, but of all the nodes we've visited so far. If you find the
 # target_value return the node with that value, and if no node is found return nil.
 
-# def bfs(starting_node, target_value)
+def bfs(starting_node, target_value)
+    queue = [starting_node]
+    until queue.empty?
+        node = queue.shift
+        return node.val if node.val == target_value
+        queue += node.neighbors
+    end
+    nil
+end
 
-# end
+
 # Now that we have a node class that can search in any direction, we have
 # to be careful about the way we search graphs. Before, in a unidirectional
 # tree, we could safely remove a node from our consideration once we had
@@ -44,12 +53,12 @@ f.neighbors = [e]
 
 # You should be able to return the GraphNode with the value of "b" by running:
 
-#   bfs(a, "b")
+# p bfs(a, "b")
 # Good job!
 
 # Now try running:
 
-#   bfs(a, "f")
+p  bfs(a, "f")
 # Did you get caught in an infinite loop? Look at the graph visualization and
 # see why. There is no way Node A can access Node F with the way this graph is
 # setup. Think about how you could utilize a Set in order to keep track of the
