@@ -93,6 +93,33 @@ end
 
 # As always, test your code thoroughly to make sure all properties of maps ar
 #e enforced.
+
+class Map
+    def initialize
+        @map = Array.new {[]}
+    end
+
+    def set(key,value)
+        pair_index = @map.index { |pair| pair[0] == key }
+        pair_index ? @map[pair_index][1] = value : @map << [key, value]
+    end
+    
+    def get(key)
+        pair_index = @map.index { |pair| pair[0] == key }
+        pair_index ? @map[pair_index][1] : nil
+    end
+
+    # def get(key)
+    #     underlying_array.each { |pair| return pair[1] if pair[0] == key }
+    #     nil
+    # end
+
+    def delete(key)
+        @map.reject! { |pair| pair[0] == key }
+    end
+end
+
+
 class Map
     def initialize
         @arr_map = []
@@ -115,6 +142,10 @@ class Map
 
     def delete(key)
         @arr_map.each { |pair| @arr_map.delete(pair) if pair [0] == key } 
+    end
+
+    def show
+        @map.map { |el| el.is_a?(Array) ? deep_dup(el) : el }
     end
 
 end
