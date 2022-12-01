@@ -4,27 +4,28 @@
 
 # Let's write a Stack class. To do this, use the following framework:
 
-  class Stack
+class Stack
     def initialize
-      # create ivar to store stack here!
+        # create ivar to store stack here!
         @stack = []
     end
 
     def push(el)
-      # adds an element to the 
-        @stack.push(el)
+        # adds an element to the stack
+        @stack << el
     end
 
     def pop
-      # removes one element from the stack
-        @stack.pop(el)
+        # removes one element from the stack
+        @stack.pop
     end
 
     def peek
-      # returns, but doesn't remove, the top element in the stack
+        # returns, but doesn't remove, the top element in the stack
         @stack.last
     end
-  end
+end
+
 # To test that your code works, create a new instance of the Stack class, and
 # play around with adding and removing elements. Remember, a stack follows the
 # principle of LIFO!
@@ -33,6 +34,27 @@
 
 # Now let's write a Queue class. We will need the following instance methods:
 # enqueue(el), dequeue, and peek.
+
+class Queue
+
+    def initialize
+        @queue = []
+    end
+
+    def enqueue(el)
+        @queue << el
+    end
+
+    def dequeue
+        @queue.shift
+    end
+
+    def peek
+        @queue.first
+    end
+
+end
+
 
 class Queue
     def initialize
