@@ -7,14 +7,12 @@
 
 class GraphNode
     attr_accessor :val, :neighbors
+
     def initialize(val)
         @val = val
         @neighbors = []
     end
 end
-# Remember this graph from the readings?
-
-# graph
 
 # You can now build it using your new GraphNode class.
 
@@ -33,15 +31,15 @@ f.neighbors = [e]
 # the queue, but of all the nodes we've visited so far. If you find the
 # target_value return the node with that value, and if no node is found return nil.
 
-def bfs(starting_node, target_value)
-    queue = [starting_node]
-    until queue.empty?
-        node = queue.shift
-        return node.val if node.val == target_value
-        queue += node.neighbors
-    end
-    nil
-end
+# def bfs(starting_node, target_value)
+#     queue = [starting_node]
+#     until queue.empty?
+#         node = queue.shift
+#         return node.val if node.val == target_value
+#         queue += node.neighbors
+#     end
+#     nil
+# end
 
 
 # Now that we have a node class that can search in any direction, we have
