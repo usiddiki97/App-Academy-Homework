@@ -4,12 +4,13 @@
 # its value and the nodes to which it connects us - in the case of a
 # bidirectional graph, this will be all its neighbors. For any given node,
 # we should be able to add a neighboring node.
+require 'set'
 
 class GraphNode
-    attr_accessor :val, :neighbors
+    attr_accessor :value, :neighbors
 
-    def initialize(val)
-        @val = val
+    def initialize(value)
+        @value = value
         @neighbors = []
     end
 end
@@ -30,6 +31,21 @@ f.neighbors = [e]
 # Let's write a breadth-first search, making sure to keep track not just of
 # the queue, but of all the nodes we've visited so far. If you find the
 # target_value return the node with that value, and if no node is found return nil.
+
+def bfs(starting_node, target_value)
+    queue = [starting_node]
+    visited = Set.new()
+
+    until queue.empty?
+        el = queue.shift
+        unless visited.include?(el)
+            return el.value if el.value == target_value
+            visited.add(el)
+            queue += el.neighbors
+        end
+    end
+    nil
+end
 
 # def bfs(starting_node, target_value)
 #     queue = [starting_node]
