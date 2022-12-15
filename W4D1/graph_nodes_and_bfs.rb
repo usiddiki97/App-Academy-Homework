@@ -47,16 +47,6 @@ def bfs(starting_node, target_value)
     nil
 end
 
-# def bfs(starting_node, target_value)
-#     queue = [starting_node]
-#     until queue.empty?
-#         node = queue.shift
-#         return node.val if node.val == target_value
-#         queue += node.neighbors
-#     end
-#     nil
-# end
-
 
 # Now that we have a node class that can search in any direction, we have
 # to be careful about the way we search graphs. Before, in a unidirectional
