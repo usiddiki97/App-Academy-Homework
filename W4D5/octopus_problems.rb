@@ -9,34 +9,32 @@ a = ['fish', 'fiiish', 'fiiiiish', 'fiiiish', 'fffish', 'ffiiiiisshh', 'fsh', 'f
 # Find the longest fish in O(n^2) time. Do this by comparing all fish lengths to all other fish lengths
 
 def sluggish(fish)
-    fish.each_with_index do |fish1, idx1|
-        biggest = fish1
-        fish.each_with_index do |fish2,idx2|
-            if idx2 > idx1
-              biggest = fish2 if fish2.length > biggest.length
-            end
+    longest = 0
+    fish.each do |fish_1|
+        fish.each do |fish_2|
+            longest = fish_2 if fish_2.length >= fish_1.length
         end
-        return biggest
     end
+    longest
 end
 
-p sluggish(a)
+# p sluggish(a)
 
 # Dominant Octopus
 
 # Find the longest fish in O(n log n) time. Hint: You saw a sorting algorithm that runs
 # in O(n log n) in the Sorting Complexity Demo. Remember that Big O is classified by the dominant term.
 
-# def quick_sort(fish)
-#     return fish if fish.length == 1
+def quick_sort(fish)
+    return fish if fish.length == 1
     
-#     pivot_fish = fish.first
+    pivot_fish = fish.first
 
-#     left_side = fish[1..-1].select { |fish| fish.length < pivot_fish.length }
-#     right_side = fish[1..-1].select { |fish| fish.length >= pivot_fish.length }
+    left_side = fish[1..-1].select { |fish| fish.length < pivot_fish.length }
+    right_side = fish[1..-1].select { |fish| fish.length >= pivot_fish.length }
 
-#     quick_sort(left_side) + [pivot_fish] + quick_sort(right_side)
-# end
+    quick_sort(left_side) + [pivot_fish] + quick_sort(right_side)
+end
 
 # p quick_sort(a).last
 
