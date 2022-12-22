@@ -51,7 +51,7 @@ def clever(fish)
     biggest
 end
 
-p clever(a)
+# p clever(a)
 
 # Full of fish, the Octopus attempts Dance Dance Revolution. The game has tiles in the following directions:
 
@@ -68,10 +68,10 @@ def slow_dance(dir, tiles)
     tiles.each_with_index { |tile,idx| return idx if tile == dir} 
 end
 
-p slow_dance("up", tiles_array)
+# p slow_dance("up", tiles_array)
 # > 0
 
-p slow_dance("right-down", tiles_array)
+# p slow_dance("right-down", tiles_array)
 # > 3
 
 # Constant Dance!
@@ -95,8 +95,8 @@ def fast_dance(dir, hash)
     hash[dir]
 end
 
-p fast_dance("up", tiles_hash)
+# p fast_dance("up", tiles_hash)
 # > 0
 
-p fast_dance("right-down", tiles_hash)
+# p fast_dance("right-down", tiles_hash)
 # > 3
