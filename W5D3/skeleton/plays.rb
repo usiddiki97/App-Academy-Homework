@@ -26,21 +26,28 @@ class Play
       FROM
         plays
       WHERE
-        title = ?
-      SQL
+        title = ?;
+    SQL
+    raise "#{title} is not in the database" if play.empty?
+
+    Play.new(play.first)
   end
 
   def self.find_by_playwright(name)
-    playwright = Playwright.find_by_name(name)
-
-    plays = PlayDBConnection.instance.execute(<<-SQL, playwright.id)
+    plays = PlayDBConnection.instance.execute(<<-SQL, name)
       SELECT
-        *
+        plays.title,
+        plays.year
       FROM
         plays
+      JOIN
+        playwrights ON plays.playwright_id = playwrights.id
       WHERE
-        playwright_id = ?
+        playwrights.name = ?;
     SQL
+    raise "#{name} is not in the database" if plays.empty?
+
+    plays.map { |play| Play.new(play) }
   end
 
   def initialize(options)
@@ -83,7 +90,7 @@ class Playwright
   end
 
   def self.find_by_name(name)
-    person = PlayDBConnection.instance.execute(<<-SQL, name)
+    playwright = PlayDBConnection.instance.execute(<<-SQL, name)
       SELECT
         *
       FROM
@@ -91,6 +98,8 @@ class Playwright
       WHERE
         name = ?
     SQL
+    return nil if playwright.empty?
+    Playwright.new(playwright.first)
   end
 
   def initialize(options)
@@ -100,37 +109,41 @@ class Playwright
   end
 
   def create
-    raise "#{self} already in database" if self.id
+    raise "#{self} is already in the database" if self.id
     PlayDBConnection.instance.execute(<<-SQL, self.name, self.birth_year)
       INSERT INTO
         playwrights (name, birth_year)
       VALUES
-        (?, ?)
+        (?, ?);
     SQL
     self.id = PlayDBConnection.instance.last_insert_row_id
   end
 
   def update
-    raise "#{self} not in database" unless self.id
+    raise "#{self} is not in the database" unless self.id
     PlayDBConnection.instance.execute(<<-SQL, self.name, self.birth_year, self.id)
       UPDATE
         playwrights
       SET
         name = ?, birth_year = ?
       WHERE
-        id = ?
+        id = ?;
     SQL
   end
 
   def get_plays
+    raise "#{self} is not in the database" unless self.id
     plays = PlayDBConnection.instance.execute(<<-SQL, self.id)
       SELECT
-        *
+        title,
+        year
       FROM
         plays
       WHERE
-        playwright_id = ?
+        playwright_id = ?;
     SQL
+
+    plays.map { |pay| Play.new(play) }
   end
 
 end
