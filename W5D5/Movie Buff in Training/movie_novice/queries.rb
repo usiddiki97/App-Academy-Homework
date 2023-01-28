@@ -23,7 +23,7 @@
 
 def find_angelina
   #find Angelina Jolie by name in the actors table
-  Actor.find_by(name: 'Angelina Jolie')
+  Actor.find_by(name: "Angelina Jolie")
 end
 
 def top_titles
@@ -45,11 +45,10 @@ def below_average_years
   #in descending order
   # hint: use 'select', 'where', 'group', 'order'
   Movie
-  .select(:yr, "COUNT(*) as bad_movies")
-  .where('score < 5')
-  .group(:yr)
-  .order('bad_movies DESC')
-
+    .select('yr, COUNT(*) AS bad_movies')
+    .where('score < 5')
+    .group('yr')
+    .order('bad_movies DESC')
 end
 
 def alphabetized_actors
@@ -58,7 +57,10 @@ def alphabetized_actors
   # Note: Ubuntu users may find that special characters
   # are alphabetized differently than the specs.
   # This spec might fail for Ubuntu users. It's ok!
-  Actor.all.order('name ASC').limit(10)
+  Actor
+    .select(:id, :name)
+    .order('name ASC')
+    .limit(10)
 end
 
 def pulp_fiction_actors
@@ -66,9 +68,9 @@ def pulp_fiction_actors
   # display the id and name of all actors in the movie Pulp Fiction
   # hint: use 'select', 'joins', 'where'
   Actor
-  .select(:id, :name)
-  .joins(:movies)
-  .where("title = 'Pulp Fiction'")
+    .select(:id, :name)
+    .joins(:movies)
+    .where("movies.title = 'Pulp Fiction'")
 end
 
 def uma_movies
@@ -79,6 +81,6 @@ def uma_movies
   Movie
     .select(:id, :title, :yr)
     .joins(:actors)
-    .where("name = 'Uma Thurman'")
+    .where('actors.name = \'Uma Thurman\'')
     .order('yr ASC')
 end
